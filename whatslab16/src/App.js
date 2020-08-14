@@ -26,10 +26,7 @@ const NomeUsuario = styled.span`
 export default class App extends React.Component {
 
   state = {
-    mensagens: [
-      {nome: 'roberto', texto: 'bla bla bla'},
-      {nome: 'matheus', texto: 'ble ble ble'}
-    ]    
+    mensagens: []    
   }
 
   enviarMensagem = (mensagem) => {
