@@ -23,11 +23,11 @@ export class MensagemForm extends React.Component {
   }
 
   onChangeNome = (event) => {
-    this.setState({nomeValor: event.target.value})
+    this.setState({ nomeValor: event.target.value })
   }
 
   onChangeMensagem = (event) => {
-    this.setState({textoMensagem: event.target.value})
+    this.setState({ textoMensagem: event.target.value })
   }
 
   aoEnviarMensagem = () => {
@@ -41,22 +41,37 @@ export class MensagemForm extends React.Component {
     this.setState({ nomeValor: '', textoMensagem: '' })
   }
 
+  aoApertarEnter = (event) => {
+
+    if (event.key === 'Enter') {
+      const enter = {
+        nome: this.state.nomeValor,
+        texto: this.state.textoMensagem
+      }
+      this.props.enviarMensagem(enter)
+
+      this.setState({ nomeValor: '', textoMensagem: '' })
+    }
+  }
+
   render() {
     return (
       <FormContainer>
-        <NomeInput 
-          type = 'text' 
-          placeholder = { 'Nome' }
-          onChange = { this.onChangeNome }
-          value = { this.state.nomeValor }
+        <NomeInput
+          type='text'
+          placeholder={'Nome'}
+          onChange={this.onChangeNome}
+          value={this.state.nomeValor}
+
         />
-        <TextoInput 
-          type='textbox' 
+        <TextoInput
+          type='textbox'
           placeholder={'Mensagem'}
-          onChange = { this.onChangeMensagem }
-          value = { this.state.textoMensagem }
+          onChange={this.onChangeMensagem}
+          value={this.state.textoMensagem}
+          onKeyPress={this.aoApertarEnter}
         />
-        <button onClick = { this.aoEnviarMensagem }>Enviar</button>
+        <button onClick={this.aoEnviarMensagem}  >Enviar</button>
       </FormContainer>
     )
   }
