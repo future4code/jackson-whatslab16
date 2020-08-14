@@ -71,7 +71,7 @@ export class MensagemForm extends React.Component {
           value={this.state.textoMensagem}
           onKeyPress={this.aoApertarEnter}
         />
-        <button onClick={this.aoEnviarMensagem}  >Enviar</button>
+        <button onClick={this.aoEnviarMensagem}>Enviar Msg</button>
       </FormContainer>
     )
   }
