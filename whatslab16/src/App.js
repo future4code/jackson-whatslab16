@@ -26,10 +26,7 @@ const NomeUsuario = styled.span`
 export default class App extends React.Component {
 
   state = {
-    mensagens: [
-      {nome: 'roberto', texto: 'bla bla bla'},
-      {nome: 'matheus', texto: 'ble ble ble'}
-    ]    
+    mensagens: []
   }
 
   enviarMensagem = (mensagem) => {
@@ -41,11 +38,11 @@ export default class App extends React.Component {
       <AppContainer>
         <MensagensContainer>
           {
-            this.state.mensagens.map((mensagem) => 
+            this.state.mensagens.map((mensagem) =>
               <p><NomeUsuario>{mensagem.nome + ': '}</NomeUsuario>{mensagem.texto}</p>
-          )}
+            )}
         </MensagensContainer>
-        <MensagemForm enviarMensagem = {this.enviarMensagem}/>
+        <MensagemForm enviarMensagem={this.enviarMensagem} />
       </AppContainer>
     );
   }
