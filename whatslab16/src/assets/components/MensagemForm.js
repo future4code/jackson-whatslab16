@@ -16,11 +16,12 @@ const TextoInput = styled.input`
 
 
 export class MensagemForm extends React.Component {
-
   state = {
     nomeValor: '',
     textoMensagem: ''
   }
+
+
 
   onChangeNome = (event) => {
     this.setState({ nomeValor: event.target.value })
@@ -50,7 +51,7 @@ export class MensagemForm extends React.Component {
       }
       this.props.enviarMensagem(enter)
 
-      this.setState({ nomeValor: '', textoMensagem: '' })
+      this.setState({ textoMensagem: '' })
     }
   }
 
@@ -60,23 +61,19 @@ export class MensagemForm extends React.Component {
         <NomeInput
           type='text'
           placeholder={'Nome'}
-          onChange={this.onChangeNome}
-          value={this.state.nomeValor}
+          onChange={ this.onChangeNome }
+          value={ this.state.nomeValor }
 
         />
         <TextoInput
           type='textbox'
           placeholder={'Mensagem'}
-          onChange={this.onChangeMensagem}
-          value={this.state.textoMensagem}
-          onKeyPress={this.aoApertarEnter}
+          onChange={ this.onChangeMensagem }
+          value={ this.state.textoMensagem }
+          onKeyPress={ this.aoApertarEnter }
         />
-        <button onClick={this.aoEnviarMensagem}  >Enviar</button>
+        <button onClick={ this.aoEnviarMensagem }  >Enviar</button>
       </FormContainer>
     )
   }
-
-
-
-
 }

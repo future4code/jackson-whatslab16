@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { MensagemForm } from './assets/components/MensagemForm'
+import { Mensagem } from './assets/components/Mensagem'
 
 const AppContainer = styled.div`
   max-width: 600px;
@@ -19,18 +20,23 @@ const MensagensContainer = styled.div`
   padding: 20px;
 `
 
-const NomeUsuario = styled.span`
-  font-weight: bold;
-`
-
 export default class App extends React.Component {
-
   state = {
-    mensagens: []    
+    mensagens: []
   }
 
   enviarMensagem = (mensagem) => {
     this.setState({ mensagens: [...this.state.mensagens, mensagem] })
+  }
+
+  deletarMensagem = (mensagemADeletar) => {
+    this.setState({ mensagens: this.state.mensagens.filter(mensagem => {
+      if (mensagem !== mensagemADeletar) {
+        return true
+      } else {
+        return false
+      }
+    })})
   }
 
   render() {
@@ -38,13 +44,15 @@ export default class App extends React.Component {
       <AppContainer>
         <MensagensContainer>
           {
-            this.state.mensagens.map((mensagem) => 
-              <p><NomeUsuario>{mensagem.nome + ': '}</NomeUsuario>{mensagem.texto}</p>
-          )}
+            this.state.mensagens.map((mensagem) =>
+              <Mensagem
+                deletarMensagem={ this.deletarMensagem }
+                mensagem={ mensagem }
+              />)
+          }
         </MensagensContainer>
-        <MensagemForm enviarMensagem = {this.enviarMensagem}/>
+        <MensagemForm enviarMensagem = { this.enviarMensagem } />
       </AppContainer>
-    );
+    )
   }
 }
-
