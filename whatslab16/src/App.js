@@ -6,7 +6,7 @@ import { Mensagem } from './assets/components/Mensagem'
 const AppContainer = styled.div`
   max-width: 600px;
   height: 100vh;
-  border: 1px solid #000;
+  border: none;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -18,6 +18,7 @@ const MensagensContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   padding: 20px;
+  background-color: #E5DDD5;
 `
 
 export default class App extends React.Component {

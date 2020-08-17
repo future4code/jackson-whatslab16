@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import iconeCancelar from '../img/clear.svg'
 import iconeDeletar from '../img/delete.svg'
+import { SecaoDeletar } from './SecaoDeletar'
 
 const MensagemLinha = styled.div`
   display: flex;
@@ -10,14 +11,53 @@ const MensagemLinha = styled.div`
 `
 
 const MensagemContainer = styled.div`
+  max-width: 40%;
+  height: 100%;
   padding: 10px 15px;
+  border-radius: 7.5px;
+  text-align: ${ props => props.posicao };
+  align-self: ${ props => {
+    if (props.posicao === 'right'){
+      return 'flex-end'
+    }else {
+      return 'flex-start'
+    }
+  } };
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+  background-color: ${ props => {
+    if (props.posicao === 'right') {
+      return '#DCF8C6'
+    } else {
+      return '#FFF'
+    }
+  } };
+  box-shadow: 0 1px .5px rgba(0, 0, 0, .13);
+  font-size: 14px;
 `
 
 const NomeUsuario = styled.div`
   margin-bottom: 10px;
   font-weight: bold;
+  color: #E542A3;
+`
+
+const DeletarContainer = styled.div`
+  max-width: 50%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 22px 24px 20px;
+  margin: 10px;
+  background-color: #FFF;
+  border-radius: 3px;
+  box-shadow: 0 17px 50px 0 rgba(0, 0, 0, .19),0 12px 15px 0 rgba(0, 0, 0, .24);
+`
+
+const ConfirmarDeletar = styled.p`
+  margin-top: 0;
 `
 
 export class Mensagem extends React.Component {
@@ -39,20 +79,34 @@ export class Mensagem extends React.Component {
   }  
 
   render() {
+    let posicao
+    let usuario
+
+    if (this.props.mensagem.nome === 'eu') {
+      posicao = 'right'
+    } else {
+      posicao = 'left'
+      usuario = <NomeUsuario>{ this.props.mensagem.nome }</NomeUsuario>
+    }
 
     let componenteDeletar
 
     if (this.state.deletando) {
-      componenteDeletar = <div> Deletar esta mensagem?
-        <img alt={ 'Cancelar' } src={ iconeCancelar } onClick={ this.onClickCancelar } />
-        <img alt={ 'Deletar' } src={ iconeDeletar } onClick={ this.onClickDeletar } />
-      </div>
+      componenteDeletar = <DeletarContainer>
+        <ConfirmarDeletar>Deletar esta mensagem?</ConfirmarDeletar>
+        <SecaoDeletar
+          cancelar={ iconeCancelar }
+          deletar={ iconeDeletar }
+          onClickCancelar={ this.onClickCancelar }
+          onClickDeletar={ this.onClickDeletar }
+        />
+      </DeletarContainer>
     }
 
     return(
       <MensagemLinha onDoubleClick={this.duploClique}>
-        <MensagemContainer>
-          <NomeUsuario>{this.props.mensagem.nome}</NomeUsuario>
+        <MensagemContainer posicao={ posicao }>
+          { usuario }
           {this.props.mensagem.texto}
         </MensagemContainer>
         { componenteDeletar }
