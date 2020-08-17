@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import iconeCancelar from '../img/clear.svg'
+import iconeDeletar from '../img/delete.svg'
 
 const MensagemLinha = styled.div`
   display: flex;
@@ -18,23 +20,43 @@ const NomeUsuario = styled.div`
   font-weight: bold;
 `
 
-export function Mensagem (props) {
-
-  const duploClique = () => {
-  if (window.confirm('Tem certeza que deseja deletar essa mensagem?')) {
-    props.deletarMensagem(props.mensagem)
+export class Mensagem extends React.Component {
+  state = {
+    deletando: false
   }
-}
 
+  duploClique = () => {
+    this.setState({ deletando: !this.state.deletando })
+  }
 
+  onClickCancelar = () => {
+    this.setState({ deletando: false })
+  }
 
-  return(
-    <MensagemLinha onDoubleClick={ duploClique }>
-      <MensagemContainer>
-        <NomeUsuario>{ props.mensagem.nome }</NomeUsuario>
-        { props.mensagem.texto }
-      </MensagemContainer>
-    </MensagemLinha>
-  )
+  onClickDeletar = () => {
+    this.setState({ deletando: false })
+    this.props.deletarMensagem(this.props.mensagem)
+  }  
 
+  render() {
+
+    let componenteDeletar
+
+    if (this.state.deletando) {
+      componenteDeletar = <div> Deletar esta mensagem?
+        <img alt={ 'Cancelar' } src={ iconeCancelar } onClick={ this.onClickCancelar } />
+        <img alt={ 'Deletar' } src={ iconeDeletar } onClick={ this.onClickDeletar } />
+      </div>
+    }
+
+    return(
+      <MensagemLinha onDoubleClick={this.duploClique}>
+        <MensagemContainer>
+          <NomeUsuario>{this.props.mensagem.nome}</NomeUsuario>
+          {this.props.mensagem.texto}
+        </MensagemContainer>
+        { componenteDeletar }
+      </MensagemLinha>
+    )
+  }
 }
